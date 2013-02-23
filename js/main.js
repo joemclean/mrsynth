@@ -80,14 +80,18 @@ $('#C5').click(function(){
 });
 
 
-$('.white_key, .black_key').mouseenter(function(){
-	$('.white_key, .black_key').mousedown(function(){
-		$(this).addClass("key_press");
-	});
+var leftButtonDown = false;
+$(document).mousedown(function(){
+	leftButtonDown = true;
+});
+$(document).mouseup(function(){
+	leftButtonDown = false;
 });
 
-$('.white_key, .black_key').mouseup(function(){
-	$(this).removeClass("key_press");
+$('.white_key, .black_key').mouseenter(function(){
+	if (leftButtonDown === true) {
+		$(this).addClass("key_press");
+	};
 });
 
 $('.white_key, .black_key').mouseleave(function(){
