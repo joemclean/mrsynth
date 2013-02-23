@@ -6,7 +6,11 @@ a {
 	text-decoration: none;
 }
 
-a.white_key {
+div.white_key, div.black_key {
+	cursor: pointer;
+}
+
+div.white_key {
 	background-color: #eeeeee;
 	border: 1px solid #fff;
 	width: 48px;
@@ -23,7 +27,7 @@ a.white_key {
 	pointer-events: none;
 }
 
-#black_keys a.black_key {
+#black_keys div.black_key {
 	background-color: #888888;
 	border: 2px solid #fff;
 	width: 26px;
@@ -37,7 +41,7 @@ a.white_key {
 	font-size: 12px;
 }
 
-#black_keys a.right {
+#black_keys div.right {
 	margin-right:70px;
 }
 

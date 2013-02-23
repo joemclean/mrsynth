@@ -1,4 +1,3 @@
-
 var C4 = 261.63,
 		CS4 = 277.18,
 		D4 = 293.66,
@@ -37,7 +36,8 @@ $('#stop').click(function(){
 	$('#start').show();
 	$('#stop').hide();
 });
-	
+
+$('.white_key, .black_key').disableSelection();
 	
 $('#C4').click(function(){
 	updateFrequency(C4);
@@ -79,15 +79,18 @@ $('#C5').click(function(){
 	updateFrequency(C5);
 });
 
-$('.white_key').mousedown(function(){
-	$(this).addClass("key_press");
+
+$('.white_key, .black_key').mouseenter(function(){
+	$('.white_key, .black_key').mousedown(function(){
+		$(this).addClass("key_press");
+	});
 });
 
-$('.white_key').mouseup(function(){
+$('.white_key, .black_key').mouseup(function(){
 	$(this).removeClass("key_press");
 });
 
-$('.white_key').mouseleave(function(){
+$('.white_key, .black_key').mouseleave(function(){
 	$(this).removeClass("key_press");
 });
 	
