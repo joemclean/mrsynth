@@ -1,0 +1,47 @@
+body {
+	font-family: Helvetica, Arial, Sans-serif;
+}
+
+a {
+	text-decoration: none;
+}
+
+a.white_key {
+	background-color: #eeeeee;
+	border: 1px solid #fff;
+	width: 48px;
+	padding: 150px 0px 50px 0px;
+	float: left;
+	text-align: center;
+	color: #666;
+	font-weight: bold;
+}
+
+#black_keys {
+	margin-left:-365px;
+	float:left;
+	pointer-events: none;
+}
+
+#black_keys a.black_key {
+	background-color: #888888;
+	border: 2px solid #fff;
+	width: 26px;
+	padding: 50px 0px 50px 0px;
+	float: left;
+	text-align: center;
+	margin-right:20px;
+	pointer-events: auto;
+	color: #fff;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+#black_keys a.right {
+	margin-right:70px;
+}
+
+.key_press {
+	background-color: #4699D4 !important;
+}
+
