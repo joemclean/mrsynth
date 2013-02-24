@@ -11,6 +11,24 @@ var C4 = 261.63,
 		AS4 = 466.16,
 		B4 = 493.88,
 		C5 = 523.25;
+		
+var notes = {
+	C4: 261.63,
+	CS4: 277.18,
+	D4: 293.66,
+	DS4: 311.13,
+	E4: 329.63,
+	F4: 349.23,
+	FS4: 369.99,
+	G4: 392.00,
+	GS4: 415.30,
+	A4: 440.00,
+	AS4: 466.16,
+	B4: 493.88,
+	C5: 523.25
+};
+
+$(document).disableSelection();
 
 var context = new webkitAudioContext(),
 	  oscillator = context.createOscillator();
@@ -37,49 +55,6 @@ $('#stop').click(function(){
 	$('#stop').hide();
 });
 
-$('.white_key, .black_key').disableSelection();
-	
-$('#C4').click(function(){
-	updateFrequency(C4);
-});	
-$('#CS4').click(function(){
-	updateFrequency(CS4);
-});
-$('#D4').click(function(){
-	updateFrequency(D4);
-});
-$('#DS4').click(function(){
-	updateFrequency(DS4);
-});
-$('#E4').click(function(){
-	updateFrequency(E4);
-});
-$('#F4').click(function(){
-	updateFrequency(F4);
-});
-$('#FS4').click(function(){
-	updateFrequency(FS4);
-});	
-$('#G4').click(function(){
-	updateFrequency(G4);
-});
-$('#GS4').click(function(){
-	updateFrequency(GS4);
-});
-$('#A4').click(function(){
-	updateFrequency(A4);
-});
-$('#AS4').click(function(){
-	updateFrequency(AS4);
-});
-$('#B4').click(function(){
-	updateFrequency(B4);
-});
-$('#C5').click(function(){
-	updateFrequency(C5);
-});
-
-
 var leftButtonDown = false;
 $(document).mousedown(function(){
 	leftButtonDown = true;
@@ -88,13 +63,26 @@ $(document).mouseup(function(){
 	leftButtonDown = false;
 });
 
-$('.white_key, .black_key').mouseenter(function(){
+
+$('.key').mousedown(function(){
+	$(this).addClass("key_press");
+	var keyID = $(this).attr('id');
+	updateFrequency(notes[keyID]);
+});
+
+$('.key').mouseup(function(){
+	$(this).removeClass("key_press");
+});
+
+$('.key').mouseenter(function(){
 	if (leftButtonDown === true) {
 		$(this).addClass("key_press");
+		var keyID = $(this).attr('id');
+		updateFrequency(notes[keyID]);
 	};
 });
 
-$('.white_key, .black_key').mouseleave(function(){
+$('.key').mouseleave(function(){
 	$(this).removeClass("key_press");
 });
 	
