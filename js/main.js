@@ -18,15 +18,15 @@ $(document).disableSelection();
 
 var context = new webkitAudioContext(),
 	  oscillator = context.createOscillator();
-	  gainNode = context.createGainNode();
+	  volumeNode = context.createGainNode();
 
 oscillator.type = 0; // sine wave
 oscillator.frequency.value = 220;
 oscillator.start(0);
-gainNode.gain.value = 0.0;
+volumeNode.gain.value = 0.0;
 
-oscillator.connect(gainNode);
-gainNode.connect(context.destination);
+oscillator.connect(volumeNode);
+volumeNode.connect(context.destination);
 	
 var updateFrequency = function(frequency){
 	oscillator.frequency.value = frequency;
@@ -37,12 +37,9 @@ $(function() {
 $('#volume').knob({
 	'change' : function(volume) {
 		console.log(volume);
-		gainNode.gain.value = (volume/100);
+		volumeNode.gain.value = (volume/100);
 	}
 });
- 
-
-$("#slider").simpleSlider();
 
 var leftButtonDown = false;
 $(document).mousedown(function(){
@@ -57,10 +54,12 @@ $('.key').mousedown(function(){
 	$(this).addClass("key_press");
 	var keyID = $(this).attr('id');
 	updateFrequency(notes[keyID]);
+	//increase envelope gain to 1 based on attack rules
 });
 
 $('.key').mouseup(function(){
 	$(this).removeClass("key_press");
+	//reduce envelope gain to 0 based on decay rules
 });
 
 $('.key').mouseenter(function(){
