@@ -86,11 +86,13 @@ $(window).load(function() {
 			$(this).addClass("key_press");
 			var keyID = $(this).attr('id');
 			updateFrequency(notes[keyID]);
+			startAttack();
 		};
 	});
 
 	$('.key').mouseleave(function(){
 		$(this).removeClass("key_press");
+		startDecay();
 	});
 
 });
