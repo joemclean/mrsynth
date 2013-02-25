@@ -18,28 +18,31 @@ $(document).disableSelection();
 
 var context = new webkitAudioContext(),
 	  oscillator = context.createOscillator();
+	  gainNode = context.createGainNode();
 
 oscillator.type = 0; // sine wave
 oscillator.frequency.value = 220;
 oscillator.start(0);
+gainNode.gain.value = 0.0;
+
+oscillator.connect(gainNode);
+gainNode.connect(context.destination);
 	
 var updateFrequency = function(frequency){
 	oscillator.frequency.value = frequency;
 };
 	
 $(function() {
-		
-$('#start').click(function(){
-	oscillator.connect(context.destination);
-	$('#start').hide();
-	$('#stop').show();
-});
 	
-$('#stop').click(function(){
-	oscillator.disconnect(context.destination);
-	$('#start').show();
-	$('#stop').hide();
+$('#volume').knob({
+	'change' : function(volume) {
+		console.log(volume);
+		gainNode.gain.value = (volume/100);
+	}
 });
+ 
+
+$("#slider").simpleSlider();
 
 var leftButtonDown = false;
 $(document).mousedown(function(){

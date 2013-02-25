@@ -1,3 +1,15 @@
 #stop {
 	display: none;
 }
+
+#slider { 
+	margin: 10px; 
+}
+
+.dial_box {
+	width:100px;
+	padding: 10px;
+	border: 1px solid #ccc;
+	text-align: center;
+	margin-bottom: 10px;
+}

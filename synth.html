@@ -2,16 +2,28 @@
 <html>
 	<head>
 		<title>WebAudioAPI Example</title>
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css">
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>
 		<script src="js/main.js"></script>
 		<script src="js/keyboard.js"></script>
+		<script src="js/jquery.knob.js"></script>
+		
+		<!--Simple slider -->
+		<script src="js/simple-slider.js"></script>
+		<link href="css/simple-slider.css" rel="stylesheet" type="text/css" />
+		
 		<link rel="stylesheet" type="text/css" href="css/keyboard.css">
 		<link rel="stylesheet" type="text/css" href="css/main.css">
 	</head>
-	<body>
+	<body><!--
 		<a href="#" id="start">On</a>
-		<a href="#" id="stop">Off</a>
+		<a href="#" id="stop">Off</a>-->
+		<div class='dial_box'>
+			<input type="text" value="75" class="dial" id="volume" data-width="100" data-height="100" data-angleOffset="-125"
+			data-angleArc="250" data-displayInput="false"/>
+			Volume
+		</div>
 		<div>
 		  <div class="key white_key" id="C4">C4</div>
 		  <div class="key white_key" id="D4">D4</div> 
