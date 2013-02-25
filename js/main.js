@@ -14,64 +14,83 @@ var notes = {
 	C5: 523.25
 };
 
+var attackTime = 0.3;
+var decayTime = 0.3;
+
 $(document).disableSelection();
 
 var context = new webkitAudioContext(),
-	  oscillator = context.createOscillator();
-	  volumeNode = context.createGainNode();
+	  oscillator = context.createOscillator(),
+	  volumeNode = context.createGainNode(),
+	  envelopeNode = context.createGainNode();
 
 oscillator.type = 0; // sine wave
 oscillator.frequency.value = 220;
 oscillator.start(0);
 volumeNode.gain.value = 0.0;
+envelopeNode.gain.value = 0.0;
 
-oscillator.connect(volumeNode);
+oscillator.connect(envelopeNode);
+envelopeNode.connect(volumeNode);
 volumeNode.connect(context.destination);
 	
 var updateFrequency = function(frequency){
 	oscillator.frequency.value = frequency;
 };
+
+var startAttack = function(){
+	var now = context.currentTime;
+	envelopeNode.gain.setTargetValueAtTime(1.0, now, attackTime);
+	console.log('start note');
+};
+
+var startDecay = function(){
+	var now = context.currentTime;
+	envelopeNode.gain.setTargetValueAtTime(0.0, now, decayTime);
+	console.log('end note');
+};
+
+$(window).load(function() {
 	
-$(function() {
+	$('#volume').knob({
+		'change' : function(volume) {
+			console.log(volume);
+			volumeNode.gain.value = (volume/100);
+		}
+	});
+
+	var leftButtonDown = false;
+	$(document).mousedown(function(){
+		leftButtonDown = true;
+	});
 	
-$('#volume').knob({
-	'change' : function(volume) {
-		console.log(volume);
-		volumeNode.gain.value = (volume/100);
-	}
-});
-
-var leftButtonDown = false;
-$(document).mousedown(function(){
-	leftButtonDown = true;
-});
-$(document).mouseup(function(){
-	leftButtonDown = false;
-});
+	$(document).mouseup(function(){
+		leftButtonDown = false;
+	});
 
 
-$('.key').mousedown(function(){
-	$(this).addClass("key_press");
-	var keyID = $(this).attr('id');
-	updateFrequency(notes[keyID]);
-	//increase envelope gain to 1 based on attack rules
-});
-
-$('.key').mouseup(function(){
-	$(this).removeClass("key_press");
-	//reduce envelope gain to 0 based on decay rules
-});
-
-$('.key').mouseenter(function(){
-	if (leftButtonDown === true) {
+	$('.key').mousedown(function(){
 		$(this).addClass("key_press");
 		var keyID = $(this).attr('id');
 		updateFrequency(notes[keyID]);
-	};
-});
+		startAttack();
+	});
 
-$('.key').mouseleave(function(){
-	$(this).removeClass("key_press");
-});
-	
+	$('.key').mouseup(function(){
+		$(this).removeClass("key_press");
+		startDecay();
+	});
+
+	$('.key').mouseenter(function(){
+		if (leftButtonDown === true) {
+			$(this).addClass("key_press");
+			var keyID = $(this).attr('id');
+			updateFrequency(notes[keyID]);
+		};
+	});
+
+	$('.key').mouseleave(function(){
+		$(this).removeClass("key_press");
+	});
+
 });
