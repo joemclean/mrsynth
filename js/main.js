@@ -14,8 +14,8 @@ var notes = {
 	C5: 523.25
 };
 
-var attackTime = 0.3;
-var decayTime = 0.3;
+var attackTime = 0.0;
+var decayTime = 0.0;
 
 $(document).disableSelection();
 
@@ -27,7 +27,7 @@ var context = new webkitAudioContext(),
 oscillator.type = 0; // sine wave
 oscillator.frequency.value = 220;
 oscillator.start(0);
-volumeNode.gain.value = 0.0;
+volumeNode.gain.value = 0.75; //refactor to a variable so that dial can also preload value
 envelopeNode.gain.value = 0.0;
 
 oscillator.connect(envelopeNode);
@@ -35,18 +35,18 @@ envelopeNode.connect(volumeNode);
 volumeNode.connect(context.destination);
 	
 var updateFrequency = function(frequency){
-	oscillator.frequency.value = frequency;
+	oscillator.frequency.value = (frequency/2);
 };
 
 var startAttack = function(){
 	var now = context.currentTime;
-	envelopeNode.gain.setTargetValueAtTime(1.0, now, attackTime);
+	envelopeNode.gain.setTargetValueAtTime(1.0, now, (attackTime + .001));
 	console.log('start note');
 };
 
 var startDecay = function(){
 	var now = context.currentTime;
-	envelopeNode.gain.setTargetValueAtTime(0.0, now, decayTime);
+	envelopeNode.gain.setTargetValueAtTime(0.0, now, (decayTime + .001));
 	console.log('end note');
 };
 
@@ -54,8 +54,19 @@ $(window).load(function() {
 	
 	$('#volume').knob({
 		'change' : function(volume) {
-			console.log(volume);
 			volumeNode.gain.value = (volume/100);
+		}
+	});
+	
+	$('#attack').knob({
+		'change' : function(attack) {
+			attackTime = ((attack)/20);
+		}
+	});
+	
+	$('#decay').knob({
+		'change' : function(decay) {
+			decayTime = ((decay)/20);
 		}
 	});
 
