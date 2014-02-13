@@ -1,4 +1,6 @@
-var hold = true;
+var hold = false;
+
+var leftButtonDown = false;
 
 var notes = {
 	C4: 261.63,
@@ -74,7 +76,13 @@ var startDecay = function(){
 //UI control
 
 $(window).load(function() {
-	
+
+	$( "#oscillatorOneSelect" ).change(function () {
+    console.log( 'Set oscillator one to '+ $( "#oscillatorOneSelect" ).val());
+    oscillatorOneNode.type = parseInt($( "#oscillatorOneSelect" ).val());
+    leftButtonDown = false;
+  });
+
   $('#oscillatorOneVolume').knob({
 		'change' : function(volume) {
 			oscillatorOneGainNode.gain.value = (volume/100);
@@ -106,21 +114,21 @@ $(window).load(function() {
 	});
 
 	$('#hold').change(function() {
-        if($(this).is(":checked")) {
-          hold = true;
-        } else {
-          hold = false;
-        }
-    });
-
-	var leftButtonDown = false;
+    if($(this).is(":checked")) {
+      hold = true;
+    } else {
+      hold = false;
+    }
+  });
 
 	$(document).mousedown(function(){
 		leftButtonDown = true;
+		console.log("Mouse down.")
 	});
 	
 	$(document).mouseup(function(){
 		leftButtonDown = false;
+		console.log("Mouse up.")
 	});
 
 
@@ -141,7 +149,7 @@ $(window).load(function() {
 	});
 
 	$('.key').mouseenter(function(){
-		if (leftButtonDown === true) {
+		if (leftButtonDown == true) {
 			$(this).addClass("key_press");
 			var keyID = $(this).attr('id');
 			updateFrequency(notes[keyID]);
