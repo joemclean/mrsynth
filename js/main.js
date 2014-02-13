@@ -95,6 +95,19 @@ $(window).load(function() {
 		}
 	});
 
+	$('#oscillatorOneDetune').knob({
+		'change' : function(detune) {
+			oscillatorOneNode.detune.value = detune;
+		}
+	});
+
+	$('#oscillatorTwoDetune').knob({
+		'change' : function(detune) {
+			oscillatorTwoNode.detune.value = detune;
+		}
+	});
+
+
   $('#oscillatorTwoVolume').knob({
 		'change' : function(volume) {
 			oscillatorTwoGainNode.gain.value = (volume/100);
@@ -109,13 +122,13 @@ $(window).load(function() {
 	
 	$('#attack').knob({
 		'change' : function(attack) {
-			attackTime = ((attack)/40);
+			attackTime = ((attack)/60);
 		}
 	});
 	
 	$('#decay').knob({
 		'change' : function(decay) {
-			decayTime = ((decay)/40);
+			decayTime = ((decay)/60);
 		}
 	});
 

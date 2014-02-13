@@ -16,39 +16,50 @@
 		<a href="#" id="start">On</a>
 		<a href="#" id="stop">Off</a>-->
 		<div class='dial_box'>
+			<h3>Osc 1</h3>
+			Volume
 			<input type="text" value="75" class="dial" id="oscillatorOneVolume" data-width="100" data-height="100" data-angleOffset="-125"
 			data-angleArc="250" data-displayInput="true"/>
-			Osc 1 Volume
+			Detune
+			<input type="text" value="0" class="dial" id="oscillatorOneDetune" data-width="100" data-height="100" data-angleOffset="-125"
+			data-angleArc="250" data-displayInput="true"/>
+			Type
 			<select id="oscillatorOneSelect">
         <option value="0" selected="selected">Sine</option>
         <option value="1">Saw</option>
         <option value="2">Square</option>
+        <option value="3">Triangle</option>
       </select>
 		</div>
 		<div class='dial_box'>
+			<h3>Osc 2</h3>
+			Volume
 			<input type="text" value="75" class="dial" id="oscillatorTwoVolume" data-width="100" data-height="100" data-angleOffset="-125"
 			data-angleArc="250" data-displayInput="true"/>
-			Osc 2 Volume
+			Detune
+			<input type="text" value="0" class="dial" id="oscillatorTwoDetune" data-width="100" data-height="100" data-angleOffset="-125"
+			data-angleArc="250" data-displayInput="true"/>
+			Type
 			<select id="oscillatorTwoSelect">
         <option value="0" selected="selected">Sine</option>
         <option value="1">Saw</option>
         <option value="2">Square</option>
+        <option value="3">Triangle</option>
       </select>
 		</div>
 		<div class='dial_box'>
+			<h3>Envelope</h3>
+			Attack
 			<input type="text" value="0" class="dial" id="attack" data-width="100" data-height="100" data-angleOffset="-125"
 			data-angleArc="250" data-displayInput="true"/>
-			Attack
-		</div>
-		<div class='dial_box'>
+			Decay
 			<input type="text" value="0" class="dial" id="decay" data-width="100" data-height="100" data-angleOffset="-125"
 			data-angleArc="250" data-displayInput="true"/>
-			Decay
 		</div>
 		<div class='dial_box'>
+			<h3>Volume</h3>
 			<input type="text" value="75" class="dial" id="volume" data-width="100" data-height="100" data-angleOffset="-125"
 			data-angleArc="250" data-displayInput="true"/>
-			Master Volume
 		</div>
 		<div id="keyboard_control">
 		  <input type="checkbox" name="hold" value="hold" id="hold"> Hold
