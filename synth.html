@@ -50,11 +50,16 @@
 		<div class='dial_box'>
 			<h3>Filter</h3>
 			Cutoff
-			<input type="text" value="0" class="dial" id="cutoff" data-width="100" data-height="100" data-angleOffset="-125"
+			<input type="text" value="100" class="dial" id="cutoff" data-width="100" data-height="100" data-angleOffset="-125"
 			data-angleArc="250" data-displayInput="true"/>
 			Resonance
 			<input type="text" value="0" class="dial" id="resonance" data-width="100" data-height="100" data-angleOffset="-125"
 			data-angleArc="250" data-displayInput="true"/>
+			Type
+			<select id="filterSelect">
+        <option value="0" selected="selected">Low Pass</option>
+        <option value="1">High Pass</option>
+      </select>
 		</div>
 		<div class='dial_box'>
 			<h3>Envelope</h3>

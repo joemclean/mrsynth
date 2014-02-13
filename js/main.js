@@ -39,6 +39,8 @@ oscillatorOneNode.start(0);
 oscillatorTwoNode.type = 0; // sine wave
 oscillatorTwoNode.start(0);
 
+filterNode.type = 0; //low pass
+
 volumeNode.gain.value = 0.75;
 envelopeNode.gain.value = 0.0;
 oscillatorOneGainNode.gain.value = 0.75;
@@ -85,6 +87,12 @@ $(window).load(function() {
   $( "#oscillatorTwoSelect" ).change(function () {
     console.log( 'Set oscillator two to '+ $( "#oscillatorTwoSelect" ).val());
     oscillatorTwoNode.type = parseInt($( "#oscillatorTwoSelect" ).val());
+    leftButtonDown = false;
+  });
+
+  $( "#filterSelect" ).change(function () {
+    console.log( 'Set filter to '+ $( "#filterSelect" ).val());
+    filterNode.type = parseInt($( "#filterSelect" ).val());
     leftButtonDown = false;
   });
 
