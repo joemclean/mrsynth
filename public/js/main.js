@@ -1,7 +1,3 @@
-var hold = false;
-
-var leftButtonDown = false;
-
 var notes = {
 	C3:  130.81,
 	CS3: 138.59,
@@ -32,6 +28,12 @@ var notes = {
 
 $(document).disableSelection();
 
+
+// |--------------------|
+// | Signal Chain Setup |
+// |--------------------|
+
+
 //custom node creation
 var delayEffectNode = function(){
     //create the nodes we’ll use
@@ -41,12 +43,12 @@ var delayEffectNode = function(){
     this.feedback = context.createGainNode();
     this.wetLevel = context.createGainNode();
 
-    //set some decent values
-    this.delay.delayTime.value = 0.30; //100 ms delay
+    //set some default values
+    this.delay.delayTime.value = 0.30;
     this.feedback.gain.value = 0.10;
     this.wetLevel.gain.value = 0.5;
 
-    //set up the routing
+    //set up the delay's internal routing
     this.input.connect(this.delay);
     this.input.connect(this.output);
     this.delay.connect(this.feedback);
@@ -59,7 +61,7 @@ var delayEffectNode = function(){
     };
 };
 
-//initialize basic nodes
+//initialize nodes
 var context = new webkitAudioContext();
 var oscillatorOneNode = context.createOscillator();
 var oscillatorOneGainNode = context.createGainNode();
@@ -68,25 +70,21 @@ var oscillatorTwoGainNode = context.createGainNode();
 var filterNode = context.createBiquadFilter();
 var envelopeNode = context.createGainNode();
 var volumeNode = context.createGainNode();
-
-//initialize custom no
 var delayNode = new delayEffectNode();
 
 //initialize values
 oscillatorOneNode.type = 1; // sawtooth wave
 oscillatorOneNode.start(0);
-
 oscillatorTwoNode.type = 0; // sine wave
 oscillatorTwoNode.start(0);
-
 filterNode.type = 0; //low pass
 filterNode.frequency.value = 20000;
-
 volumeNode.gain.value = 0.75;
 envelopeNode.gain.value = 0.0;
 oscillatorOneGainNode.gain.value = 0.75;
 oscillatorTwoGainNode.gain.value = 0.75;
 
+//connect nodes
 oscillatorOneNode.connect(oscillatorOneGainNode);
 oscillatorOneGainNode.connect(filterNode);
 oscillatorTwoNode.connect(oscillatorTwoGainNode);
@@ -96,6 +94,7 @@ envelopeNode.connect(delayNode.input);
 delayNode.connect(volumeNode);
 volumeNode.connect(context.destination);
 	
+//keyboard interfacing
 var updateFrequency = function(frequency){
 	oscillatorOneNode.frequency.value = frequency;
 	oscillatorTwoNode.frequency.value = frequency;
@@ -116,14 +115,43 @@ var startDecay = function(){
 	console.log('end note');
 };
 
-//UI control
+// |--------------------|
+// |     UI Controls    |
+// |--------------------|
+  
 
 $(window).load(function() {
+
+  //oscillators
+
+  $('#oscillatorOneVolume').knob({
+    'change' : function(volume) {
+      oscillatorOneGainNode.gain.value = (volume/100);
+    }
+  });
+
+  $('#oscillatorOneDetune').knob({
+    'change' : function(detune) {
+      oscillatorOneNode.detune.value = detune;
+    }
+  });
 
 	$( "#oscillatorOneSelect" ).change(function () {
     console.log( 'Set oscillator one to '+ $( "#oscillatorOneSelect" ).val());
     oscillatorOneNode.type = parseInt($( "#oscillatorOneSelect" ).val());
     leftButtonDown = false;
+  });
+
+  $('#oscillatorTwoVolume').knob({
+    'change' : function(volume) {
+      oscillatorTwoGainNode.gain.value = (volume/100);
+    }
+  });
+
+  $('#oscillatorTwoDetune').knob({
+    'change' : function(detune) {
+      oscillatorTwoNode.detune.value = detune;
+    }
   });
 
   $( "#oscillatorTwoSelect" ).change(function () {
@@ -132,47 +160,13 @@ $(window).load(function() {
     leftButtonDown = false;
   });
 
+  //filter
+
   $( "#filterSelect" ).change(function () {
     console.log( 'Set filter to '+ $( "#filterSelect" ).val());
     filterNode.type = parseInt($( "#filterSelect" ).val());
     leftButtonDown = false;
   });
-
-  $('#oscillatorOneVolume').knob({
-		'change' : function(volume) {
-			oscillatorOneGainNode.gain.value = (volume/100);
-		}
-	});
-
-	$('#oscillatorOneDetune').knob({
-		'change' : function(detune) {
-			oscillatorOneNode.detune.value = detune;
-		}
-	});
-
-  $('#oscillatorTwoVolume').knob({
-		'change' : function(volume) {
-			oscillatorTwoGainNode.gain.value = (volume/100);
-		}
-	});
-
-	$('#oscillatorTwoDetune').knob({
-		'change' : function(detune) {
-			oscillatorTwoNode.detune.value = detune;
-		}
-	});
-
-	$('#attack').knob({
-		'change' : function(attack) {
-			attackTime = ((attack)/60);
-		}
-	});
-	
-	$('#decay').knob({
-		'change' : function(decay) {
-			decayTime = ((decay)/60);
-		}
-	});
 
 	$('#cutoff').knob({
 		'change' : function(cutoff) {
@@ -185,6 +179,22 @@ $(window).load(function() {
 			filterNode.Q.value = (resonance/5);
 		}
 	});
+
+  //envelope
+
+  $('#attack').knob({
+    'change' : function(attack) {
+      attackTime = ((attack)/60);
+    }
+  });
+  
+  $('#decay').knob({
+    'change' : function(decay) {
+      decayTime = ((decay)/60);
+    }
+  });
+
+  //delay
 
 	$('#delay_time').knob({
 		'change' : function(time) {
@@ -204,12 +214,20 @@ $(window).load(function() {
 		}
 	});
 
+  //volume
+
 	$('#volume').knob({
 		'change' : function(volume) {
 			volumeNode.gain.value = (volume/100);
 		}
 	});
+ 
+// |--------------------|
+// |  Keyboard Controls |
+// |--------------------|
 	
+  var hold = false; 
+  var leftButtonDown = false;
 
 	$('#hold').change(function() {
     if($(this).is(":checked")) {

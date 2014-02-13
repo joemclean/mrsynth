@@ -1,7 +1,11 @@
 body {
-  background-color: #eee;
+  background-image: url('../images/subtle_dots.png');
   padding: 0px;
   margin: 0px;
+}
+
+#logo {
+  margin: 15px 0px -15px 0px;
 }
 
 p {
@@ -9,19 +13,20 @@ p {
   font-size: 21px;
 }
 
-#stop {
-	display: none;
-}
-
-#slider { 
-	margin: 10px; 
+#synth_wrapper {
+  width:900px;
+  padding: 10px 100px;
+  background-color: #fff;
+  overflow: auto;
+  margin: 0px auto;
+  border: 3px solid #eee;
 }
 
 .dial_box {
 	width:100px;
   height: 355px;
 	padding: 0px 10px;
-	border: 1px solid #ddd;
+	border: 2px solid #eee;
 	text-align: center;
 	margin: 0px 10px 10px 0px;
 	float:left;
@@ -31,9 +36,9 @@ p {
 #keyboard_control {
   clear:both;
   padding: 10px;
-  width: 232px;
+  width: 234px;
   margin-bottom: 10px;
-  border: 1px solid #ddd;
+  border: 2px solid #eee;
 }
 
 #keyboard_control #label {
@@ -43,12 +48,4 @@ p {
 
 #keyboard {
 	clear:both;
-}
-
-#synth_wrapper {
-  width:1080px;
-  padding: 10px 100px;
-  background-color: #fff;
-  overflow: auto;
-  margin: 0px auto;
 }
