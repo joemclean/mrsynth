@@ -216,6 +216,7 @@ $(window).load(function() {
       hold = true;
     } else {
       hold = false;
+      startDecay();
     }
   });
 
