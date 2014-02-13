@@ -26,17 +26,17 @@ var oscillatorOneNode = context.createOscillator();
 var oscillatorOneGainNode = context.createGainNode();
 var oscillatorTwoNode = context.createOscillator();
 var oscillatorTwoGainNode = context.createGainNode();
+var filterNode = context.createBiquadFilter();
 var envelopeNode = context.createGainNode();
 var volumeNode = context.createGainNode();
 
 
+
 //initialize values
 oscillatorOneNode.type = 0; // sine wave
-oscillatorOneNode.frequency.value = 220;
 oscillatorOneNode.start(0);
 
 oscillatorTwoNode.type = 0; // sine wave
-oscillatorTwoNode.frequency.value = 220;
 oscillatorTwoNode.start(0);
 
 volumeNode.gain.value = 0.75;
@@ -44,15 +44,11 @@ envelopeNode.gain.value = 0.0;
 oscillatorOneGainNode.gain.value = 0.75;
 oscillatorTwoGainNode.gain.value = 0.75;
 
-var attackTime= 0.001;
-var decayTime= 0.001;
-
 oscillatorOneNode.connect(oscillatorOneGainNode);
-oscillatorOneGainNode.connect(envelopeNode);
-
+oscillatorOneGainNode.connect(filterNode);
 oscillatorTwoNode.connect(oscillatorTwoGainNode);
-oscillatorTwoGainNode.connect(envelopeNode);
-
+oscillatorTwoGainNode.connect(filterNode);
+filterNode.connect(envelopeNode);
 envelopeNode.connect(volumeNode);
 volumeNode.connect(context.destination);
 	
@@ -60,6 +56,9 @@ var updateFrequency = function(frequency){
 	oscillatorOneNode.frequency.value = (frequency/2);
 	oscillatorTwoNode.frequency.value = (frequency/2);
 };
+
+var attackTime= 0.001;
+var decayTime= 0.001;
 
 var startAttack = function(){
 	var now = context.currentTime;
@@ -114,12 +113,6 @@ $(window).load(function() {
 		}
 	});
 
-	$('#volume').knob({
-		'change' : function(volume) {
-			volumeNode.gain.value = (volume/100);
-		}
-	});
-	
 	$('#attack').knob({
 		'change' : function(attack) {
 			attackTime = ((attack)/60);
@@ -131,6 +124,25 @@ $(window).load(function() {
 			decayTime = ((decay)/60);
 		}
 	});
+
+	$('#cutoff').knob({
+		'change' : function(cutoff) {
+			filterNode.frequency.value = (cutoff * 200);
+		}
+	});
+
+	$('#resonance').knob({
+		'change' : function(resonance) {
+			filterNode.Q.value = (resonance/5);
+		}
+	});
+
+	$('#volume').knob({
+		'change' : function(volume) {
+			volumeNode.gain.value = (volume/100);
+		}
+	});
+	
 
 	$('#hold').change(function() {
     if($(this).is(":checked")) {
