@@ -20,7 +20,7 @@ var notes = {
 
 $(document).disableSelection();
 
-//initialize nodes
+//initialize basic nodes
 var context = new webkitAudioContext();
 var oscillatorOneNode = context.createOscillator();
 var oscillatorOneGainNode = context.createGainNode();
@@ -30,7 +30,34 @@ var filterNode = context.createBiquadFilter();
 var envelopeNode = context.createGainNode();
 var volumeNode = context.createGainNode();
 
+//effects nodes
+var delayEffectNode = function(){
+    //create the nodes we’ll use
+    this.input = context.createGainNode();
+    var output = context.createGainNode(),
+        delay = context.createDelayNode(),
+        feedback = context.createGainNode(),
+        wetLevel = context.createGainNode();
 
+    //set some decent values
+    delay.delayTime.value = 0.15; //150 ms delay
+    feedback.gain.value = 0.25;
+    wetLevel.gain.value = 0.25;
+
+    //set up the routing
+    this.input.connect(delay);
+    this.input.connect(output);
+    delay.connect(feedback);
+    delay.connect(wetLevel);
+    feedback.connect(delay);
+    wetLevel.connect(output);
+
+    this.connect = function(target){
+       output.connect(target);
+    };
+};
+
+delayNode = new delayEffectNode(),
 
 //initialize values
 oscillatorOneNode.type = 0; // sine wave
@@ -40,6 +67,7 @@ oscillatorTwoNode.type = 0; // sine wave
 oscillatorTwoNode.start(0);
 
 filterNode.type = 0; //low pass
+filterNode.frequency.value = 20000;
 
 volumeNode.gain.value = 0.75;
 envelopeNode.gain.value = 0.0;
@@ -51,7 +79,8 @@ oscillatorOneGainNode.connect(filterNode);
 oscillatorTwoNode.connect(oscillatorTwoGainNode);
 oscillatorTwoGainNode.connect(filterNode);
 filterNode.connect(envelopeNode);
-envelopeNode.connect(volumeNode);
+envelopeNode.connect(delayNode.input);
+delayNode.connect(volumeNode);
 volumeNode.connect(context.destination);
 	
 var updateFrequency = function(frequency){
