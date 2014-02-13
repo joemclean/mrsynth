@@ -1,3 +1,13 @@
+body {
+  background-color: #eee;
+  padding: 0px;
+  margin: 0px;
+}
+
+p {
+  color: #ccc;
+}
+
 #stop {
 	display: none;
 }
@@ -8,12 +18,13 @@
 
 .dial_box {
 	width:100px;
-  height: 340px;
-	padding: 10px;
-	border: 1px solid #ccc;
+  height: 355px;
+	padding: 0px 10px;
+	border: 1px solid #ddd;
 	text-align: center;
 	margin: 0px 10px 10px 0px;
 	float:left;
+  color: #666;
 }
 
 #keyboard_control {
@@ -21,14 +32,22 @@
   padding: 10px;
   width: 232px;
   margin-bottom: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #ddd;
 }
 
 #keyboard_control #label {
-  color: #ccc;
+  color: #ddd;
   margin-right: 20px;
 }
 
 #keyboard {
 	clear:both;
+}
+
+#synth_wrapper {
+  width:1080px;
+  padding: 10px 100px;
+  background-color: #fff;
+  overflow: auto;
+  margin: 0px auto;
 }

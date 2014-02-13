@@ -198,6 +198,12 @@ $(window).load(function() {
 		}
 	});
 
+	$('#delay_level').knob({
+		'change' : function(level) {
+			delayNode.wetLevel.gain.value = (level/100);
+		}
+	});
+
 	$('#volume').knob({
 		'change' : function(volume) {
 			volumeNode.gain.value = (volume/100);
