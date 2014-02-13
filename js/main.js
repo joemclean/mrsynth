@@ -31,11 +31,11 @@ var volumeNode = context.createGainNode();
 
 
 //initialize values
-oscillatorOneNode.type = 1; // saw wave
+oscillatorOneNode.type = 0; // sine wave
 oscillatorOneNode.frequency.value = 220;
 oscillatorOneNode.start(0);
 
-oscillatorTwoNode.type = 2; // square wave
+oscillatorTwoNode.type = 0; // sine wave
 oscillatorTwoNode.frequency.value = 220;
 oscillatorTwoNode.start(0);
 
@@ -80,6 +80,12 @@ $(window).load(function() {
 	$( "#oscillatorOneSelect" ).change(function () {
     console.log( 'Set oscillator one to '+ $( "#oscillatorOneSelect" ).val());
     oscillatorOneNode.type = parseInt($( "#oscillatorOneSelect" ).val());
+    leftButtonDown = false;
+  });
+
+  $( "#oscillatorTwoSelect" ).change(function () {
+    console.log( 'Set oscillator two to '+ $( "#oscillatorTwoSelect" ).val());
+    oscillatorTwoNode.type = parseInt($( "#oscillatorTwoSelect" ).val());
     leftButtonDown = false;
   });
 
