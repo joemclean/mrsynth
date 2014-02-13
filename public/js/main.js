@@ -73,7 +73,7 @@ var volumeNode = context.createGainNode();
 var delayNode = new delayEffectNode();
 
 //initialize values
-oscillatorOneNode.type = 0; // sine wave
+oscillatorOneNode.type = 1; // sawtooth wave
 oscillatorOneNode.start(0);
 
 oscillatorTwoNode.type = 0; // sine wave
