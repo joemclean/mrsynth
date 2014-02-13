@@ -8,8 +8,7 @@ This is intended as an accessible and extensible demo of some of the things poss
 There are three main sections to the javascript code. The first section sets up the signal chain and sets default values for all the nodes. The second binds the knobs and UI controls to the module parameters. The final section handles keyboard interaction.
 
 First Section
-===
-===
+---
 
 The first section establishes the nodes and their connections. The setup is as follows:
 
@@ -21,14 +20,12 @@ The delay node is custom built. It uses a delay node in conjunction with gain no
 
 
 Second Section
-===
-===
+---
 
 The second section binds UI to synth parameters. It's mainly a straightforward implementation of jQuery onChange events and the default behavior of the knob plugin I used.
 
 Third Section
-===
-===
+---
 
 This section defines keyboard behavior. More on that coming soon.
 
