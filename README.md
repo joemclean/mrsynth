@@ -3,7 +3,7 @@ mr. synth
 
 A little synthesizer built with the WebAudio API.
 
-See the live demo here: (http://mr-synth.herokuapp.com/)
+See the live demo here: http://mr-synth.herokuapp.com/
 
 This is intended as an accessible and extensible demo of some of the things possible with the WebAudio API. Implementation has been kept as straightforward as possible for the functionality offered.
 
@@ -18,7 +18,7 @@ The first section establishes the nodes and their connections. The setup is as f
                               )--> filter -> envelope -> delay -> master vol -> speakers
         osc 2 -> osc 2 gain --'
 
-The delay node is custom built. It uses a delay node in conjunction with gain nodes to create a feedback loop over the delay node. It's based heavily on the code available as part of this tutorial: (http://www.html5rocks.com/en/tutorials/casestudies/jamwithchrome-audio/) I modified the code here to allow for dynamic changes in the delay values.
+The delay node is custom built. It uses a delay node in conjunction with gain nodes to create a feedback loop over the delay node. It's based heavily on the code available as part of this tutorial: http://www.html5rocks.com/en/tutorials/casestudies/jamwithchrome-audio/ I modified the code here to allow for dynamic changes in the delay values.
 
 
 Second Section
