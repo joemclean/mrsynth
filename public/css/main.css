@@ -5,7 +5,7 @@ body {
 }
 
 #logo {
-  margin: 15px 0px -15px 0px;
+  margin: 0px 0px -15px 0px;
 }
 
 p {
@@ -13,12 +13,26 @@ p {
   font-size: 21px;
 }
 
+body {
+  font-family: Helvetica, Arial, Sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: #87ceeb;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+
 #synth_wrapper {
   width:900px;
-  padding: 10px 100px;
+  padding: 25px 100px 30px 100px;
   background-color: #fff;
   overflow: auto;
-  margin: 0px auto;
+  margin: -3px auto -3px auto;
   border: 3px solid #eee;
 }
 
@@ -48,4 +62,12 @@ p {
 
 #keyboard {
 	clear:both;
+}
+
+#footer {
+  clear:both;
+  background-color: #eee;
+  color: #ccc;
+  padding: 10px;
+  text-align: center;
 }
