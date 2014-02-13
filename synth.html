@@ -12,10 +12,11 @@
 		<link rel="stylesheet" type="text/css" href="css/keyboard.css">
 		<link rel="stylesheet" type="text/css" href="css/main.css">
 	</head>
-	<body><!--
-		<a href="#" id="start">On</a>
-		<a href="#" id="stop">Off</a>-->
-		<div class='dial_box'>
+	<body>
+
+		<!-- Oscillators -->
+
+		<div id="oscillator_one_box" class='dial_box'>
 			<h3>Osc 1</h3>
 			Volume
 			<input type="text" value="75" class="dial" id="oscillatorOneVolume" data-width="100" data-height="100" data-angleOffset="-125"
@@ -31,7 +32,8 @@
         <option value="3">Triangle</option>
       </select>
 		</div>
-		<div class='dial_box'>
+
+		<div id="oscillator_two_box" class='dial_box'>
 			<h3>Osc 2</h3>
 			Volume
 			<input type="text" value="75" class="dial" id="oscillatorTwoVolume" data-width="100" data-height="100" data-angleOffset="-125"
@@ -47,7 +49,10 @@
         <option value="3">Triangle</option>
       </select>
 		</div>
-		<div class='dial_box'>
+
+		<!-- Filter -->
+
+		<div id="filter_box" class='dial_box'>
 			<h3>Filter</h3>
 			Cutoff
 			<input type="text" value="100" class="dial" id="cutoff" data-width="100" data-height="100" data-angleOffset="-125"
@@ -61,7 +66,10 @@
         <option value="1">High Pass</option>
       </select>
 		</div>
-		<div class='dial_box'>
+
+		<!-- Envelope -->
+
+		<div id="envelope_box" class='dial_box'>
 			<h3>Envelope</h3>
 			Attack
 			<input type="text" value="0" class="dial" id="attack" data-width="100" data-height="100" data-angleOffset="-125"
@@ -70,17 +78,43 @@
 			<input type="text" value="0" class="dial" id="decay" data-width="100" data-height="100" data-angleOffset="-125"
 			data-angleArc="250" data-displayInput="true"/>
 		</div>
-		<div class='dial_box'>
+
+		<!-- Delay -->
+
+		<div id="delay_box" class='dial_box'>
+			<h3>Delay</h3>
+			Time
+			<input type="text" value="30" class="dial" id="delay_time" data-width="100" data-height="100" data-angleOffset="-125"
+			data-angleArc="250" data-displayInput="true"/>
+			Feedback
+			<input type="text" value="10" class="dial" id="delay_feedback" data-width="100" data-height="100" data-angleOffset="-125"
+			data-angleArc="250" data-displayInput="true"/>
+		</div>
+
+		<!-- Master Volume -->
+
+		<div id="volume_box" class='dial_box'>
 			<h3>Volume</h3>
 			Master
 			<input type="text" value="75" class="dial" id="volume" data-width="100" data-height="100" data-angleOffset="-125"
 			data-angleArc="250" data-displayInput="true"/>
 		</div>
+
+		<!-- Keyboard -->
+
 		<div id="keyboard_control">
-		  <input type="checkbox" name="hold" value="hold" id="hold"> Hold
+		  <span id="label">Keyboard Control </span><input type="checkbox" name="hold" value="hold" id="hold"> Hold
 		</div>
+
 		<div id="keyboard">
 			<div>
+			  <div class="key white_key" id="C3"></div>
+			  <div class="key white_key" id="D3"></div> 
+			  <div class="key white_key" id="E3"></div> 
+			  <div class="key white_key" id="F3"></div> 
+			  <div class="key white_key" id="G3"></div> 
+			  <div class="key white_key" id="A3"></div> 
+			  <div class="key white_key" id="B3"></div> 
 			  <div class="key white_key" id="C4"></div>
 			  <div class="key white_key" id="D4"></div> 
 			  <div class="key white_key" id="E4"></div> 
@@ -91,6 +125,11 @@
 			  <div class="key white_key" id="C5"></div>
 			</div>
 			<div id="black_keys">
+			  <div class="key black_key" id="CS3"></div>
+			  <div class="key black_key right" id="DS3"></div>
+			  <div class="key black_key" id="FS3"></div>
+			  <div class="key black_key" id="GS3"></div>
+			  <div class="key black_key right" id="AS3"></div>
 			  <div class="key black_key" id="CS4"></div>
 			  <div class="key black_key right" id="DS4"></div>
 			  <div class="key black_key" id="FS4"></div>

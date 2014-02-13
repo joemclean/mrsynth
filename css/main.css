@@ -18,6 +18,15 @@
 
 #keyboard_control {
   clear:both;
+  padding: 10px;
+  width: 232px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+}
+
+#keyboard_control #label {
+  color: #ccc;
+  margin-right: 20px;
 }
 
 #keyboard {

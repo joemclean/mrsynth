@@ -3,22 +3,61 @@ var hold = false;
 var leftButtonDown = false;
 
 var notes = {
-	C4: 261.63,
+	C3:  130.81,
+	CS3: 138.59,
+	D3:  146.83,
+	DS3: 155.56,
+	E3:  164.81,
+	F3:  174.61,
+	FS3: 185.00,
+	G3:  196.00,
+	GS3: 207.65,
+	A3:  220.00,
+	AS3: 233.08,
+	B3:  246.94,
+	C4:  261.63,
 	CS4: 277.18,
-	D4: 293.66,
+	D4:  293.66,
 	DS4: 311.13,
-	E4: 329.63,
-	F4: 349.23,
+	E4:  329.63,
+	F4:  349.23,
 	FS4: 369.99,
-	G4: 392.00,
+	G4:  392.00,
 	GS4: 415.30,
-	A4: 440.00,
+	A4:  440.00,
 	AS4: 466.16,
-	B4: 493.88,
-	C5: 523.25
+	B4:  493.88,
+	C5:  523.25
 };
 
 $(document).disableSelection();
+
+//custom node creation
+var delayEffectNode = function(){
+    //create the nodes we’ll use
+    this.input = context.createGainNode();
+    this.output = context.createGainNode();
+    this.delay = context.createDelayNode();
+    this.feedback = context.createGainNode();
+    this.wetLevel = context.createGainNode();
+
+    //set some decent values
+    this.delay.delayTime.value = 0.30; //100 ms delay
+    this.feedback.gain.value = 0.10;
+    this.wetLevel.gain.value = 0.5;
+
+    //set up the routing
+    this.input.connect(this.delay);
+    this.input.connect(this.output);
+    this.delay.connect(this.feedback);
+    this.delay.connect(this.wetLevel);
+    this.feedback.connect(this.delay);
+    this.wetLevel.connect(this.output);
+
+    this.connect = function(target){
+       this.output.connect(target);
+    };
+};
 
 //initialize basic nodes
 var context = new webkitAudioContext();
@@ -30,34 +69,8 @@ var filterNode = context.createBiquadFilter();
 var envelopeNode = context.createGainNode();
 var volumeNode = context.createGainNode();
 
-//effects nodes
-var delayEffectNode = function(){
-    //create the nodes we’ll use
-    this.input = context.createGainNode();
-    var output = context.createGainNode(),
-        delay = context.createDelayNode(),
-        feedback = context.createGainNode(),
-        wetLevel = context.createGainNode();
-
-    //set some decent values
-    delay.delayTime.value = 0.15; //150 ms delay
-    feedback.gain.value = 0.25;
-    wetLevel.gain.value = 0.25;
-
-    //set up the routing
-    this.input.connect(delay);
-    this.input.connect(output);
-    delay.connect(feedback);
-    delay.connect(wetLevel);
-    feedback.connect(delay);
-    wetLevel.connect(output);
-
-    this.connect = function(target){
-       output.connect(target);
-    };
-};
-
-delayNode = new delayEffectNode(),
+//initialize custom no
+var delayNode = new delayEffectNode();
 
 //initialize values
 oscillatorOneNode.type = 0; // sine wave
@@ -84,8 +97,8 @@ delayNode.connect(volumeNode);
 volumeNode.connect(context.destination);
 	
 var updateFrequency = function(frequency){
-	oscillatorOneNode.frequency.value = (frequency/2);
-	oscillatorTwoNode.frequency.value = (frequency/2);
+	oscillatorOneNode.frequency.value = frequency;
+	oscillatorTwoNode.frequency.value = frequency;
 };
 
 var attackTime= 0.001;
@@ -137,16 +150,15 @@ $(window).load(function() {
 		}
 	});
 
-	$('#oscillatorTwoDetune').knob({
-		'change' : function(detune) {
-			oscillatorTwoNode.detune.value = detune;
-		}
-	});
-
-
   $('#oscillatorTwoVolume').knob({
 		'change' : function(volume) {
 			oscillatorTwoGainNode.gain.value = (volume/100);
+		}
+	});
+
+	$('#oscillatorTwoDetune').knob({
+		'change' : function(detune) {
+			oscillatorTwoNode.detune.value = detune;
 		}
 	});
 
@@ -171,6 +183,18 @@ $(window).load(function() {
 	$('#resonance').knob({
 		'change' : function(resonance) {
 			filterNode.Q.value = (resonance/5);
+		}
+	});
+
+	$('#delay_time').knob({
+		'change' : function(time) {
+			delayNode.delay.delayTime.value = (time/100);
+		}
+	});
+
+	$('#delay_feedback').knob({
+		'change' : function(feedback) {
+			delayNode.feedback.gain.value = (feedback/100);
 		}
 	});
 
