@@ -1,3 +1,5 @@
+var hold = true;
+
 var notes = {
 	C4: 261.63,
 	CS4: 277.18,
@@ -14,28 +16,47 @@ var notes = {
 	C5: 523.25
 };
 
-var attackTime = 0.0;
-var decayTime = 0.0;
-
 $(document).disableSelection();
 
-var context = new webkitAudioContext(),
-	  oscillator = context.createOscillator(),
-	  volumeNode = context.createGainNode(),
-	  envelopeNode = context.createGainNode();
+//initialize nodes
+var context = new webkitAudioContext();
+var oscillatorOneNode = context.createOscillator();
+var oscillatorOneGainNode = context.createGainNode();
+var oscillatorTwoNode = context.createOscillator();
+var oscillatorTwoGainNode = context.createGainNode();
+var envelopeNode = context.createGainNode();
+var volumeNode = context.createGainNode();
 
-oscillator.type = 0; // sine wave
-oscillator.frequency.value = 220;
-oscillator.start(0);
-volumeNode.gain.value = 0.75; //refactor to a variable so that dial can also preload value
+
+//initialize values
+oscillatorOneNode.type = 1; // saw wave
+oscillatorOneNode.frequency.value = 220;
+oscillatorOneNode.start(0);
+
+oscillatorTwoNode.type = 2; // square wave
+oscillatorTwoNode.frequency.value = 220;
+oscillatorTwoNode.start(0);
+
+volumeNode.gain.value = 0.75;
 envelopeNode.gain.value = 0.0;
+oscillatorOneGainNode.gain.value = 0.75;
+oscillatorTwoGainNode.gain.value = 0.75;
 
-oscillator.connect(envelopeNode);
+var attackTime= 0.001;
+var decayTime= 0.001;
+
+oscillatorOneNode.connect(oscillatorOneGainNode);
+oscillatorOneGainNode.connect(envelopeNode);
+
+oscillatorTwoNode.connect(oscillatorTwoGainNode);
+oscillatorTwoGainNode.connect(envelopeNode);
+
 envelopeNode.connect(volumeNode);
 volumeNode.connect(context.destination);
 	
 var updateFrequency = function(frequency){
-	oscillator.frequency.value = (frequency/2);
+	oscillatorOneNode.frequency.value = (frequency/2);
+	oscillatorTwoNode.frequency.value = (frequency/2);
 };
 
 var startAttack = function(){
@@ -50,8 +71,22 @@ var startDecay = function(){
 	console.log('end note');
 };
 
+//UI control
+
 $(window).load(function() {
 	
+  $('#oscillatorOneVolume').knob({
+		'change' : function(volume) {
+			oscillatorOneGainNode.gain.value = (volume/100);
+		}
+	});
+
+  $('#oscillatorTwoVolume').knob({
+		'change' : function(volume) {
+			oscillatorTwoGainNode.gain.value = (volume/100);
+		}
+	});
+
 	$('#volume').knob({
 		'change' : function(volume) {
 			volumeNode.gain.value = (volume/100);
@@ -60,17 +95,26 @@ $(window).load(function() {
 	
 	$('#attack').knob({
 		'change' : function(attack) {
-			attackTime = ((attack)/20);
+			attackTime = ((attack)/40);
 		}
 	});
 	
 	$('#decay').knob({
 		'change' : function(decay) {
-			decayTime = ((decay)/20);
+			decayTime = ((decay)/40);
 		}
 	});
 
+	$('#hold').change(function() {
+        if($(this).is(":checked")) {
+          hold = true;
+        } else {
+          hold = false;
+        }
+    });
+
 	var leftButtonDown = false;
+
 	$(document).mousedown(function(){
 		leftButtonDown = true;
 	});
@@ -89,7 +133,11 @@ $(window).load(function() {
 
 	$('.key').mouseup(function(){
 		$(this).removeClass("key_press");
-		startDecay();
+		if (hold == true) {
+			// maintain note
+		} else {
+		  startDecay();
+		}
 	});
 
 	$('.key').mouseenter(function(){
@@ -103,7 +151,11 @@ $(window).load(function() {
 
 	$('.key').mouseleave(function(){
 		$(this).removeClass("key_press");
-		startDecay();
+		if (hold == true) {
+			// maintain note
+		} else {
+		  startDecay();
+		}
 	});
 
 });
