@@ -3,6 +3,8 @@ mr. synth
 
 A little synthesizer built with the WebAudio API.
 
+See the live demo here: (http://mr-synth.herokuapp.com/)
+
 This is intended as an accessible and extensible demo of some of the things possible with the WebAudio API. Implementation has been kept as straightforward as possible for the functionality offered.
 
 There are three main sections to the javascript code. The first section sets up the signal chain and sets default values for all the nodes. The second binds the knobs and UI controls to the module parameters. The final section handles keyboard interaction.
