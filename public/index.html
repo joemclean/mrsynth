@@ -28,11 +28,11 @@
 				Detune
 				<input type="text" value="0" class="dial" id="oscillatorOneDetune" data-width="100" data-height="100" data-angleOffset="-125"
 				data-angleArc="250" data-displayInput="true"/>
-				Type
+				Shape
 				<select id="oscillatorOneSelect">
 	        <option value="0">Sine</option>
-	        <option value="1" selected="selected">Saw</option>
-	        <option value="2">Square</option>
+	        <option value="1" selected="selected">Square</option>
+	        <option value="2">Saw</option>
 	        <option value="3">Triangle</option>
 	      </select>
 			</div>
@@ -45,11 +45,11 @@
 				Detune
 				<input type="text" value="0" class="dial" id="oscillatorTwoDetune" data-width="100" data-height="100" data-angleOffset="-125"
 				data-angleArc="250" data-displayInput="true"/>
-				Type
+				Shape
 				<select id="oscillatorTwoSelect">
 	        <option value="0" selected="selected">Sine</option>
-	        <option value="1">Saw</option>
-	        <option value="2">Square</option>
+	        <option value="1">Square</option>
+	        <option value="2">Saw</option>
 	        <option value="3">Triangle</option>
 	      </select>
 			</div>
@@ -59,10 +59,10 @@
 			<div id="filter_box" class='dial_box'>
 				<h3>Filter</h3>
 				Cutoff
-				<input type="text" value="100" class="dial" id="cutoff" data-width="100" data-height="100" data-angleOffset="-125"
+				<input type="text" value="33" class="dial" id="cutoff" data-width="100" data-height="100" data-angleOffset="-125"
 				data-angleArc="250" data-displayInput="true"/>
 				Resonance
-				<input type="text" value="0" class="dial" id="resonance" data-width="100" data-height="100" data-angleOffset="-125"
+				<input type="text" value="50" class="dial" id="resonance" data-width="100" data-height="100" data-angleOffset="-125"
 				data-angleArc="250" data-displayInput="true"/>
 				Type
 				<select id="filterSelect">
@@ -70,6 +70,26 @@
 	        <option value="1">High Pass</option>
 	      </select>
 			</div>
+
+			<!-- LFO -->
+
+      <div id="lfo_box" class='dial_box'>
+				<h3>LFO</h3>
+				Frequency
+				<input type="text" value="10" class="dial" id="lfoFrequency" data-width="100" data-height="100" data-angleOffset="-125"
+				data-angleArc="250" data-displayInput="true"/>
+				Depth
+				<input type="text" value="50" class="dial" id="lfoDepth" data-width="100" data-height="100" data-angleOffset="-125"
+				data-angleArc="250" data-displayInput="true"/>
+				Shape
+				<select id="lfoSelect">
+	        <option value="0" selected="selected">Sine</option>
+	        <option value="1">Square</option>
+	        <option value="2">Saw</option>
+	        <option value="3">Triangle</option>
+	      </select>
+			</div>
+
 
 			<!-- Envelope -->
 
@@ -130,6 +150,9 @@
 				  <div class="key white_key" id="A4"></div> 
 				  <div class="key white_key" id="B4"></div> 
 				  <div class="key white_key" id="C5"></div>
+				  <div class="key white_key" id="D5"></div> 
+				  <div class="key white_key" id="E5"></div> 
+				  <div class="key white_key" id="F5"></div> 
 				</div>
 				<div id="black_keys">
 				  <div class="key black_key" id="CS3"></div>
@@ -142,6 +165,8 @@
 				  <div class="key black_key" id="FS4"></div>
 				  <div class="key black_key" id="GS4"></div>
 				  <div class="key black_key right" id="AS4"></div>
+				  <div class="key black_key" id="CS5"></div>
+				  <div class="key black_key right" id="DS5"></div>
 				</div>
 			</div>
 			<br />

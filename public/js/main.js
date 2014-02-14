@@ -23,7 +23,12 @@ var notes = {
 	A4:  440.00,
 	AS4: 466.16,
 	B4:  493.88,
-	C5:  523.25
+	C5:  523.25,
+  CS5: 554.37,
+  D5:  587.33,
+  DS5: 622.25,
+  E5:  659.25,
+  F5:  698.46,
 };
 
 $(document).disableSelection();
@@ -68,21 +73,26 @@ var oscillatorOneGainNode = context.createGainNode();
 var oscillatorTwoNode = context.createOscillator();
 var oscillatorTwoGainNode = context.createGainNode();
 var filterNode = context.createBiquadFilter();
+var lfoNode = context.createOscillator();
+var lfoGainNode = context.createGainNode();
 var envelopeNode = context.createGainNode();
 var volumeNode = context.createGainNode();
 var delayNode = new delayEffectNode();
 
 //initialize values
 oscillatorOneNode.type = 1; // sawtooth wave
-oscillatorOneNode.start(0);
 oscillatorTwoNode.type = 0; // sine wave
-oscillatorTwoNode.start(0);
-filterNode.type = 0; //low pass
-filterNode.frequency.value = 20000;
-volumeNode.gain.value = 0.75;
-envelopeNode.gain.value = 0.0;
 oscillatorOneGainNode.gain.value = 0.75;
 oscillatorTwoGainNode.gain.value = 0.75;
+lfoNode.type = 0;
+lfoNode.frequency.value = 1;
+lfoNode.start;
+lfoGainNode.gain.value = 1000;
+filterNode.type = 0; //low pass
+filterNode.frequency.value = 6666;
+filterNode.Q.value = 10;
+envelopeNode.gain.value = 0.0;
+volumeNode.gain.value = 0.75;
 
 //connect nodes
 oscillatorOneNode.connect(oscillatorOneGainNode);
@@ -92,7 +102,13 @@ oscillatorTwoGainNode.connect(filterNode);
 filterNode.connect(envelopeNode);
 envelopeNode.connect(delayNode.input);
 delayNode.connect(volumeNode);
+lfoNode.connect(lfoGainNode);
+lfoGainNode.connect(filterNode.frequency);
 volumeNode.connect(context.destination);
+
+oscillatorOneNode.start(0);
+oscillatorTwoNode.start(0);
+lfoNode.start();
 	
 //keyboard interfacing
 var updateFrequency = function(frequency){
@@ -179,6 +195,26 @@ $(window).load(function() {
 			filterNode.Q.value = (resonance/5);
 		}
 	});
+
+  //lfo
+
+  $('#lfoFrequency').knob({
+    'change' : function(frequency) {
+      lfoNode.frequency.value = (frequency/10);
+    }
+  });
+
+  $('#lfoDepth').knob({
+    'change' : function(lfoDepth) {
+      lfoGainNode.gain.value = (lfoDepth * 20);
+    }
+  });
+
+  $( "#lfoSelect" ).change(function () {
+    console.log( 'Set lfo to '+ $( "#lfoSelect" ).val());
+    lfoNode.type = parseInt($( "#lfoSelect" ).val());
+    leftButtonDown = false;
+  });
 
   //envelope
 
