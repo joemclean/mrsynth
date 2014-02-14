@@ -269,13 +269,22 @@ $(window).load(function() {
   $( "#octaveControl" ).change(function () {
     console.log( 'Set lfo to '+ $( "#octaveControl" ).val());
     var octave = $( "#octaveControl" ).val()
-    if (octave == "-1") {
+    switch (octave) {
+    case "-2":
+      octaveMultiplier = 0.25;
+      break;
+    case "-1":
       octaveMultiplier = 0.5;
-    } else if (octave == "+1") {
+      break;
+    case "+1":
       octaveMultiplier = 2;
-    } else {
+      break;
+    case "+2":
+      octaveMultiplier = 4;
+      break;
+    default:
       octaveMultiplier = 1;
-    };
+    }
     leftButtonDown = false;
   });
 
