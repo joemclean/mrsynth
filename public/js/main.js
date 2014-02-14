@@ -262,8 +262,22 @@ $(window).load(function() {
 // |  Keyboard Controls |
 // |--------------------|
 	
+  var octaveMultiplier = 1;
   var hold = false; 
   var leftButtonDown = false;
+
+  $( "#octaveControl" ).change(function () {
+    console.log( 'Set lfo to '+ $( "#octaveControl" ).val());
+    var octave = $( "#octaveControl" ).val()
+    if (octave == "-1") {
+      octaveMultiplier = 0.5;
+    } else if (octave == "+1") {
+      octaveMultiplier = 2;
+    } else {
+      octaveMultiplier = 1;
+    };
+    leftButtonDown = false;
+  });
 
 	$('#hold').change(function() {
     if($(this).is(":checked")) {
@@ -288,7 +302,7 @@ $(window).load(function() {
 	$('.key').mousedown(function(){
 		$(this).addClass("key_press");
 		var keyID = $(this).attr('id');
-		updateFrequency(notes[keyID]);
+		updateFrequency(notes[keyID]*octaveMultiplier);
 		startAttack();
 	});
 
@@ -305,7 +319,7 @@ $(window).load(function() {
 		if (leftButtonDown == true) {
 			$(this).addClass("key_press");
 			var keyID = $(this).attr('id');
-			updateFrequency(notes[keyID]);
+			updateFrequency(notes[keyID]*octaveMultiplier);
 			startAttack();
 		};
 	});
