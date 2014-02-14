@@ -15,10 +15,11 @@ First Section
 The first section establishes the nodes and their connections. The setup is as follows:
 
         osc 1 -> osc 1 gain --,
-                              )--> filter -> envelope -> delay -> master vol -> speakers
-        osc 2 -> osc 2 gain --'      ^
-                                     |
-                                    LFO
+          ^                   |--> filter -> envelope -> delay -> master vol -> speakers
+        osc 2 -> osc 2 gain --'      ^          ^
+          ^                          |          |
+          |                         LFO   Keyboard (trigger)
+        Keyboard (pitch)
 
 
 ###Oscillators
