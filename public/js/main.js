@@ -42,11 +42,11 @@ $(document).disableSelection();
 //custom node creation
 var delayEffectNode = function(){
     //create the nodes we’ll use
-    this.input = context.createGainNode();
-    this.output = context.createGainNode();
-    this.delay = context.createDelayNode();
-    this.feedback = context.createGainNode();
-    this.wetLevel = context.createGainNode();
+    this.input = context.createGain();
+    this.output = context.createGain();
+    this.delay = context.createDelay();
+    this.feedback = context.createGain();
+    this.wetLevel = context.createGain();
 
     //set some default values
     this.delay.delayTime.value = 0.30;
@@ -69,14 +69,14 @@ var delayEffectNode = function(){
 //initialize nodes
 var context = new webkitAudioContext();
 var oscillatorOneNode = context.createOscillator();
-var oscillatorOneGainNode = context.createGainNode();
+var oscillatorOneGainNode = context.createGain();
 var oscillatorTwoNode = context.createOscillator();
-var oscillatorTwoGainNode = context.createGainNode();
+var oscillatorTwoGainNode = context.createGain();
 var filterNode = context.createBiquadFilter();
 var lfoNode = context.createOscillator();
-var lfoGainNode = context.createGainNode();
-var envelopeNode = context.createGainNode();
-var volumeNode = context.createGainNode();
+var lfoGainNode = context.createGain();
+var envelopeNode = context.createGain();
+var volumeNode = context.createGain();
 var delayNode = new delayEffectNode();
 
 //initialize values
