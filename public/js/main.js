@@ -121,13 +121,13 @@ var decayTime= 0.001;
 
 var startAttack = function(){
 	var now = context.currentTime;
-	envelopeNode.gain.setTargetValueAtTime(1.0, now, (attackTime + .001));
+	envelopeNode.gain.setTargetAtTime(1.0, now, (attackTime + .001));
 	console.log('start note');
 };
 
 var startDecay = function(){
 	var now = context.currentTime;
-	envelopeNode.gain.setTargetValueAtTime(0.0, now, (decayTime + .001));
+	envelopeNode.gain.setTargetAtTime(0.0, now, (decayTime + .001));
 	console.log('end note');
 };
 
