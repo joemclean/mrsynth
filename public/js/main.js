@@ -88,7 +88,7 @@ lfoNode.type = 0;
 lfoNode.frequency.value = 1;
 lfoNode.start;
 lfoGainNode.gain.value = 1000;
-filterNode.type = 0; //low pass
+filterNode.type = "lowpass"; //low pass
 filterNode.frequency.value = 6666;
 filterNode.Q.value = 10;
 envelopeNode.gain.value = 0.0;
@@ -180,7 +180,7 @@ $(window).load(function() {
 
   $( "#filterSelect" ).change(function () {
     console.log( 'Set filter to '+ $( "#filterSelect" ).val());
-    filterNode.type = parseInt($( "#filterSelect" ).val());
+    filterNode.type = $( "#filterSelect" ).val();
     leftButtonDown = false;
   });
 
