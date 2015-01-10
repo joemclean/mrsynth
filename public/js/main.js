@@ -84,7 +84,7 @@ oscillatorOneNode.type = "sawtooth"; // sawtooth wave
 oscillatorTwoNode.type = "sine"; // sine wave
 oscillatorOneGainNode.gain.value = 0.75;
 oscillatorTwoGainNode.gain.value = 0.75;
-lfoNode.type = 0;
+lfoNode.type = "sine";
 lfoNode.frequency.value = 1;
 lfoNode.start;
 lfoGainNode.gain.value = 1000;
@@ -212,7 +212,7 @@ $(window).load(function() {
 
   $( "#lfoSelect" ).change(function () {
     console.log( 'Set lfo to '+ $( "#lfoSelect" ).val());
-    lfoNode.type = parseInt($( "#lfoSelect" ).val());
+    lfoNode.type = $( "#lfoSelect" ).val();
     leftButtonDown = false;
   });
 
