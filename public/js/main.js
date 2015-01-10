@@ -80,8 +80,8 @@ var volumeNode = context.createGain();
 var delayNode = new delayEffectNode();
 
 //initialize values
-oscillatorOneNode.type = 1; // sawtooth wave
-oscillatorTwoNode.type = 0; // sine wave
+oscillatorOneNode.type = "sawtooth"; // sawtooth wave
+oscillatorTwoNode.type = "sine"; // sine wave
 oscillatorOneGainNode.gain.value = 0.75;
 oscillatorTwoGainNode.gain.value = 0.75;
 lfoNode.type = 0;
@@ -154,7 +154,7 @@ $(window).load(function() {
 
 	$( "#oscillatorOneSelect" ).change(function () {
     console.log( 'Set oscillator one to '+ $( "#oscillatorOneSelect" ).val());
-    oscillatorOneNode.type = parseInt($( "#oscillatorOneSelect" ).val());
+    oscillatorOneNode.type = $( "#oscillatorOneSelect" ).val();
     leftButtonDown = false;
   });
 
@@ -172,7 +172,7 @@ $(window).load(function() {
 
   $( "#oscillatorTwoSelect" ).change(function () {
     console.log( 'Set oscillator two to '+ $( "#oscillatorTwoSelect" ).val());
-    oscillatorTwoNode.type = parseInt($( "#oscillatorTwoSelect" ).val());
+    oscillatorTwoNode.type = $( "#oscillatorTwoSelect" ).val();
     leftButtonDown = false;
   });
 
